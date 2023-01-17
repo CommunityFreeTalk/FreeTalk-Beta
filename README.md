@@ -1,4 +1,4 @@
-# :FreeTalk-Beta: 익명 커뮤니티 FreeTalk-Beta
+# FreeTalk-Beta - 익명 커뮤니티
 
 ## 📋 개요
 *익명 커뮤니티로서 자유로운 의견 공유가 가능한 웹서비스.<br>
