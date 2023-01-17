@@ -1,19 +1,16 @@
-# FreeTalk-Beta
+# :FreeTalk-Beta: 익명 커뮤니티 FreeTalk-Beta
+
+## 📋 개요
+*익명 커뮤니티로서 자유로운 의견 공유가 가능한 웹서비스.<br>
+*SNS 로그인과 주요 포털 서비스 로그인을 통한 본인 인증을 통해 비매너 행위를 지양하는 효과를 기대한다.<br>
 
 
-익명 커뮤니티로서 자유로운 의견 공유가 가능한 웹서비스.<br>
-SNS 로그인과 주요 포털 서비스 로그인을 통한 본인 인증을 통해 비매너 행위를 지양하는 효과를 기대한다.<br>
-
-
-
-# :FreeTalk: 익명 커뮤니티
-
-## :clipboard: 개발환경
+## :books: 개발환경
 * IntelliJ
 * DBeaver
 * GitHub
 
-## :clipboard: 사용 기술
+## :books: 사용 기술
 ### 백엔드
 #### Spring boot
 * JAVA 11
@@ -35,4 +32,11 @@ SNS 로그인과 주요 포털 서비스 로그인을 통한 본인 인증을 �
 * Javascript
 * Thymeleaf
 * jQuery
+
+
+
+## :email: 개발자
+<br>
+
+
 -->
