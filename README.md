@@ -1,11 +1,9 @@
-# FreeTalk-Beta - 익명 커뮤니티
-
-## 📋 개요
+# :computer: FreeTalk-Beta 익명 커뮤니티
 *익명 커뮤니티로서 자유로운 의견 공유가 가능한 웹서비스.<br>
 *SNS 로그인과 주요 포털 서비스 로그인을 통한 본인 인증을 통해 비매너 행위를 지양하는 효과를 기대한다.<br>
 
 
-## :books: 개발환경
+## 📋 개발환경
 * IntelliJ
 * DBeaver
 * GitHub
