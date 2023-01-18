@@ -18,10 +18,17 @@ public class PageController {
         return "index";
     }
 
+
+
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
     @GetMapping("/search")
     @ResponseBody
     public String search(@RequestParam String keyword){
         String[] keywords  = keyword.split(" ");
         return keyword;
+
     }
 }
