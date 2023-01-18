@@ -173,13 +173,13 @@ body {
 }
 
 #naver-connect {
-    background: rgb(255, 255, 255) url('https://raw.githubusercontent.com/eswarasai/social-login/master/img/naver.svg?sanitize=true') no-repeat scroll 13px 0px / 28px 45px padding-box border-box;
+    background: rgb(255, 255, 255) url('static/image/Naver아이콘.png?sanitize=true') no-repeat scroll 13px 0px / 28px 45px padding-box border-box;
     border: 1px solid rgb(0, 199, 60);
 }
 
 #naver-connect:hover {
     border-color: rgb(0, 199, 60);
-    background: rgb(0, 199, 60) url('https://raw.githubusercontent.com/eswarasai/social-login/master/img/naver-white.svg?sanitize=true') no-repeat scroll 13px 0px / 28px 45px padding-box border-box;
+    background: rgb(0, 199, 60) url('static/image/Naver아이콘.png?sanitize=true') no-repeat scroll 13px 0px / 28px 45px padding-box border-box;
     -webkit-transition: all .8s ease-out;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;
