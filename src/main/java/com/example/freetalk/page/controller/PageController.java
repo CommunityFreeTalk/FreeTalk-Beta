@@ -1,5 +1,6 @@
 package com.example.freetalk.page.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,17 +11,17 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 @Controller
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class PageController {
 
-    @GetMapping("/")
-    public String index(){
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String index(){
+//        return "index";
+//    }
 
 
 
-    @GetMapping("/login")
+    @GetMapping("/socialLogin")
     public String loginPage(){
         return "login";
     }
