@@ -8,7 +8,7 @@
 
     <script>
         function search(param){
-            var addr = '/search?keyword=';
+            var addr = '/search/search?keyword=';
             var txt = document.getElementById("textInput").value;
             window.location.href = addr.concat(txt);
         }
@@ -18,18 +18,20 @@
 <header class="top-header">
     <nav class="top-nav">
         <ul>
-            <li><a href="/socialLogin">로그인</a></li>
-            <li><a href="#">회원가입</a></li>
+            <li th:if="${session.user == null}"><a href="/socialLogin">소셜 로그인</a></li>
+            <li th:if="${session.user != null}"><a href="/logout">로그아웃</a></li>
+<!--            <li><a href="#">회원가입</a></li>-->
             <li><a href="#"><i class="fas fa-bars"></i></a></li>
+<!--            사이드 메뉴 추가 (ex: 로그인-> join되어있는 커뮤니티 목록 보이기 -> 바로가기-->
+<!--            ex:비로그인 -> 로그인한 사용자만 이용 가능합니다. text-->
         </ul>
         <div class="profile_img_wrap">
-
         </div>
     </nav>
 </header>
 <section class="main-section">
     <div class="logo-wrap">
-        <a href="#"><img src="/image/logo/Logo1.png"></a>
+        <a href="/"><img src="/image/logo/Logo1.png"></a>
     </div>
     <div class="searchbar-wrap">
         <i class="fas fa-search"></i>

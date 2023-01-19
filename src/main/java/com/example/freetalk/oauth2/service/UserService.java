@@ -22,7 +22,7 @@ import java.util.Collections;
 @Service
 public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
-    private final HttpSession httpSession;
+    private final HttpSession session;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -38,7 +38,7 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
         User user = saveOrUpdate(attributes);
         System.out.println(user);
-        httpSession.setAttribute("user", new SessionUserDto(user));
+        session.setAttribute("user", new SessionUserDto(user));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
@@ -48,9 +48,8 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
     private User saveOrUpdate(OAuthDto attributes) {
         User user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(),attributes.getPicture()))
+                .map(entity -> entity.update(attributes.getEmail()))
                 .orElse(attributes.toEntity());
-
         return userRepository.save(user);
     }
 }

@@ -23,9 +23,8 @@ public class SocialLoginController {
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
         System.out.println(user);
         if(user != null){
-            model.addAttribute("userName", user.getName());
+            model.addAttribute("userEmail", user.getEmail());
         }
-
         return "index";
     }
 
@@ -34,5 +33,7 @@ public class SocialLoginController {
 
         return principal.getAttribute("email");
     }
+
+
 
 }
