@@ -13,9 +13,31 @@
             window.location.href = addr.concat(txt);
         }
     </script>
+    <style>
+        .top-nav{
+            float: right;
+        }
+        .searchbar-header-wrap{
+            float: left;
+        }
+        .searchbar-header-wrap i{
+            line-height: 40px;
+            color : var( --midium-gray-color);
+            margin-left: -16%;
+        }
+        .search-header-input{
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
 <header class="top-header">
+    <div class="searchbar-header-wrap">
+        <i class="fas fa-search"></i>
+        <form method="post" enctype="multipart/form-data" action="javascript:search()">
+            <input class="search-header-input" type="text" id="textInput" placeholder="키워드를 입력해 주세요" th:value="${keyword}"/>
+        </form>
+    </div>
     <nav class="top-nav">
         <ul>
             <li th:if="${session.user == null}"><a href="/socialLogin">소셜 로그인</a></li>
@@ -32,13 +54,6 @@
 <section class="main-section">
     <div class="logo-wrap">
         <a href="/"><img src="/image/logo/Logo1.png"></a>
-    </div>
-    <div class="searchbar-wrap">
-        <i class="fas fa-search"></i>
-        <form method="post" enctype="multipart/form-data" action="javascript:search()">
-        <input class="search-input" type="text" id="textInput" placeholder="키워드를 입력해 주세요"/>
-        </form>
-        <i class="fas fa-keyboard"></i>
     </div>
 </section>
 <footer>
