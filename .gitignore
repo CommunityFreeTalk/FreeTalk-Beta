@@ -39,3 +39,4 @@ out/
 
 
 application-oauth.properties
+application.properties
