@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.freetalk.mapper.community.CommunityMapper">
+
+    <select id="selectBySingleHashTag" parameterType="String" resultType="HashMap">
+        SELECT c.*
+        FROM   cm c,
+               tr t,
+               ht h
+        WHERE  c.c_key = any(SELECT t.c_key
+                          FROM   tr
+                          WHERE  t.ht_id = (SELECT h.ht_id
+                                            FROM   ht
+                                            WHERE  h.ht_name = #{keyword}))
+    </select>
+</mapper>
