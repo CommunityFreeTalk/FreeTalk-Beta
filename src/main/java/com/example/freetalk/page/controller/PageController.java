@@ -35,6 +35,6 @@ public class PageController {
 
     @GetMapping("/community")
     public String community(){
-        return "community";
+        return "addCommunity";
     }
 }
