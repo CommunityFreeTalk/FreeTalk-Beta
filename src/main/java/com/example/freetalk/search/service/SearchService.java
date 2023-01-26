@@ -17,12 +17,15 @@ public class SearchService {
     public List<ResultGroupDTO> selectByHashTag(String[] keywords){
         if (keywords.length==1){
             List<ResultGroupDTO> list = sr.selectBySingleHashTag(keywords[0]);
-            if (list.get(0)==null){
+            if (list==null){
                 list= new ArrayList<>();
                 return list;
             }else {
-                return sr.selectBySingleHashTag(keywords[0]);
+                for(ResultGroupDTO dto : list){
+                    dto.toTag();
+                }
             }
+            return list;
             //다중 검색
         }else return new ArrayList<>();
     }

@@ -13,4 +13,14 @@ public class ResultGroupDTO {
     private String c_name;
     private String c_key;
     private String status;
+
+    public void toTag(){
+        String[] getNames = hashTag.split(",");
+        StringBuilder sb = new StringBuilder();
+        for (String str : getNames){
+            sb.append("#"+str+" ");
+        }
+        setHashTag(sb.toString());
+        System.out.println(hashTag);
+    }
 }
