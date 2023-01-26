@@ -3,15 +3,20 @@
 
 <mapper namespace="com.example.freetalk.mapper.community.CommunityMapper">
 
-    <select id="selectBySingleHashTag" parameterType="String" resultType="HashMap">
-        SELECT c.*
-        FROM   cm c,
-               tr t,
-               ht h
-        WHERE  c.c_key = any(SELECT t.c_key
-                          FROM   tr
-                          WHERE  t.ht_id = (SELECT h.ht_id
-                                            FROM   ht
-                                            WHERE  h.ht_name = #{keyword}))
+    <select id="selectBySingleHashTag" parameterType="String" resultType="com.example.freetalk.search.dto.ResultGroupDTO">
+        SELECT c.*,
+               Group_concat(h.ht_name) as hashTag
+        FROM   cm c
+                   LEFT JOIN tr t
+                             ON c.c_key = t.c_key
+                   LEFT JOIN ht h
+                             ON t.ht_id = h.ht_id
+        WHERE  c.c_key = ANY (SELECT c_key
+                              FROM   tr
+                              WHERE  ht_id = (SELECT ht_id
+                                              FROM   ht
+                                              WHERE  ht_name =  #{keyword}))
+        GROUP  BY c_key;
     </select>
+
 </mapper>

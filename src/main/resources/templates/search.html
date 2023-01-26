@@ -65,20 +65,22 @@
 <section class="main-section">
     <div class="container">
         <h2>커뮤니티</h2>
-        <div>검색 결과 : <span th:text="${#lists.size(communityList)}"></span>개</div>
+
+        <div th:if="${#lists.size(communityList)!=0}">검색 결과 : <span th:text="${#lists.size(communityList)}"></span>개</div>
+        <div th:if="${#lists.size(communityList)==0}"> <a th:text="${keyword}"></a> 에 대한 검색 결과가 없습니다.</div>
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th scope="col">이미지</th>
+            <tr th:if="${#lists.size(communityList)!=0}">
+                <th scope="col" style="margin-right: 15px">이미지</th>
                 <th scope="col">커뮤니티 이름</th>
                 <th scope="col">커뮤니티 테그</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr th:each="group :${communityList}">
                 <th scope="row"><img src="/image/logo/40pxLogo.jpg"></th>
-                <td>고양이클럽</td>
-                <td>#고양이 #귀여움주의</td>
+                <td th:text="${group.getC_name()}"></td>
+                <td th:text="${group.getHashTag()}"></td>
             </tr>
             </tbody>
         </table>
