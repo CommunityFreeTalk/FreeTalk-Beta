@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/socialLogin","/", "/css/**", "/image/**",
+                .antMatchers("/socialLogin","/login","/", "/css/**", "/image/**",
                         "/js/**").permitAll()
                 .antMatchers("/api/v1/**").hasRole(Role.
                         USER.name())

@@ -34,12 +34,14 @@ public class OAuthDto {
                               Map<String, Object> attributes) {
 
         if( registrationId.equals("kakao") ){
-            return   ofFacebook( registrationId , userNameAttributeName, attributes);
+            return ofFacebook( registrationId , userNameAttributeName, attributes);
         } else if (registrationId.equals("naver") ) {
             return ofNaver( registrationId , userNameAttributeName, attributes);
         } else if ( registrationId.equals("google") ) {
             return ofGoogle( registrationId , userNameAttributeName, attributes);
-        }else {return null;}
+        }else {
+            return null;
+        }
     }
 
     private static OAuthDto ofGoogle(String registrationId, String userNameAttributeName,
