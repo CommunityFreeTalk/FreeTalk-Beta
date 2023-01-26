@@ -21,6 +21,5 @@ public class ResultGroupDTO {
             sb.append("#"+str+" ");
         }
         setHashTag(sb.toString());
-        System.out.println(hashTag);
     }
 }
