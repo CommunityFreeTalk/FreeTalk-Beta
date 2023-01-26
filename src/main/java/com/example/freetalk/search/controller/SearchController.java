@@ -1,5 +1,6 @@
 package com.example.freetalk.search.controller;
 
+import com.example.freetalk.search.dto.ResultGroupDTO;
 import com.example.freetalk.search.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,9 +22,13 @@ public class SearchController {
     public String search(@RequestParam String keyword, Model model){
         String[] keywordList  = keyword.split(" ");
         List<String> keywords = Arrays.stream(keywordList).collect(Collectors.toList());
+        List<ResultGroupDTO> list = ss.selectByHashTag(keywordList);
+        for (ResultGroupDTO dto:list) {
+            System.out.println(dto.toString());
+        }
         model.addAttribute("keywords",keywords);
         model.addAttribute("keyword",keyword);
-        model.addAttribute("communityList",ss.selectByHashTag(keywordList));
+        model.addAttribute("communityList",list);
         return "search";
     }
 }
