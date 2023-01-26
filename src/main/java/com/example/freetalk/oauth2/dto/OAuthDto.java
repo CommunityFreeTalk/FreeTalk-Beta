@@ -33,50 +33,57 @@ public class OAuthDto {
                               String userNameAttributeName,
                               Map<String, Object> attributes) {
 
-        if( registrationId.equals("kakao") ){
-            return ofFacebook( registrationId , userNameAttributeName, attributes);
-        } else if (registrationId.equals("naver") ) {
-            return ofNaver( registrationId , userNameAttributeName, attributes);
-        } else if ( registrationId.equals("google") ) {
-            return ofGoogle( registrationId , userNameAttributeName, attributes);
+        if (registrationId.equals("facebook")) {
+            return ofFacebook(userNameAttributeName, attributes);
+        } else if (registrationId.equals("naver")) {
+            return ofNaver(userNameAttributeName, attributes);
+        } else if (registrationId.equals("google")) {
+            return ofGoogle(userNameAttributeName, attributes);
+        }else if (registrationId.equals("kakao")) {
+            return ofKakao(userNameAttributeName, attributes);
         }else {
             return null;
         }
     }
 
-    private static OAuthDto ofGoogle(String registrationId, String userNameAttributeName,
+    private static OAuthDto ofGoogle(String userNameAttributeName,
                                      Map<String, Object> attributes) {
         return OAuthDto.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .registrationId(registrationId)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
-    private static OAuthDto ofFacebook(String registrationId, String userNameAttributeName,
+    private static OAuthDto ofFacebook(String userNameAttributeName,
                                      Map<String, Object> attributes) {
         return OAuthDto.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .registrationId(registrationId)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
-    private static OAuthDto ofNaver(String registrationId, String userNameAttributeName,
+    private static OAuthDto ofNaver(String userNameAttributeName,
                                        Map<String, Object> attributes) {
         return OAuthDto.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .registrationId(registrationId)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
-
+    private static OAuthDto ofKakao(String userNameAttributeName,
+                                     Map<String, Object> attributes) {
+        return OAuthDto.builder()
+                .name((String) attributes.get("name"))
+                .email((String) attributes.get("email"))
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
 
     public User toEntity() {
         return User.builder()

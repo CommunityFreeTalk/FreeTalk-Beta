@@ -18,8 +18,9 @@
 <header class="top-header">
     <nav class="top-nav">
         <ul>
-            <li><a href="/socialLogin">로그인</a></li>
-            <li><a href="#">회원가입</a></li>
+            <li><a th:if="${session.email==null}" href="/socialLogin">로그인</a></li>
+            <li><a th:unless="${session.email==null}" href="/Logout">로그아웃</a></li>
+            <li><a th:if="${session.email==null}" href="#">회원가입</a></li>
             <li><a href="#"><i class="fas fa-bars"></i></a></li>
         </ul>
         <div class="profile_img_wrap">
