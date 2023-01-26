@@ -21,7 +21,6 @@ public class SocialLoginController {
     public String index(Model model) {
 
         SessionUserDto user = (SessionUserDto) httpSession.getAttribute("user");
-        System.out.println(user);
         if(user != null){
             model.addAttribute("userEmail", user.getEmail());
         }
