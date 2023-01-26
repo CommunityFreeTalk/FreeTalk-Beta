@@ -48,7 +48,7 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
     private User saveOrUpdate(OAuthDto attributes) {
         User user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(),attributes.getPicture()))
+                .map(entity -> entity.update(attributes.getName(),attributes.getEmail()))
                 .orElse(attributes.toEntity());
 
         return userRepository.save(user);
