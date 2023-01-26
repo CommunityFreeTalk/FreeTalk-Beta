@@ -18,4 +18,8 @@ public class PageController {
         return "login";
     }
 
+    @GetMapping("/summerNote")
+    public String first() {
+        return "SummerNote";
+    }
 }

@@ -39,7 +39,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
-
+    implementation 'commons-io:commons-io:2.11.0'
+    compileOnly 'com.google.code.gson:gson:2.8.9'
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 }
 
 tasks.named('test') {
