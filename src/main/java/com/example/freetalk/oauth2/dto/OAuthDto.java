@@ -29,7 +29,7 @@ public class OAuthDto {
         this.email = email;
         this.registrationId = registrationId;
     }
-
+    // auth 회사에 따른 객체 생성 // 1.oauth회사명[registrationId] // 2. 회원정보[nameAttributeKey] 3. 인증결과 [ attributes ]
     public static OAuthDto of(String registrationId,
                               String userNameAttributeName,
                               Map<String, Object> attributes) {
@@ -91,7 +91,6 @@ public class OAuthDto {
 
     public User toEntity() {
         return User.builder()
-                .name(name)
                 .email(email)
                 .role(Role.GUSET)
                 .build();

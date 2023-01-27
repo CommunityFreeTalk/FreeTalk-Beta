@@ -1,6 +1,7 @@
 package com.example.freetalk.oauth2.controller;
 
 import com.example.freetalk.oauth2.dto.SessionUserDto;
+import com.example.freetalk.oauth2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpSession;
 public class SocialLoginController {
 
     private final HttpSession httpSession;
+
+    private final UserService userService;
 
     @GetMapping("/")
     public String index(Model model) {

@@ -10,35 +10,26 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name="oauth_user")
+@Table(name="user")
 @ToString
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "u_id")
     private Long id;
-
-    @Column(nullable = false)
-    private String name;
 
     @Column(nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "status")
     private Role role;
 
     @Builder
-    public User(String name, String email, Role role) {
-        this.name = name;
+    public User(String email, Role role) {
         this.email = email;
         this.role = role;
-    }
-
-    public User update(String name) {
-        this.name = name;
-        //this.picture = picture;
-        return this;
     }
 
 

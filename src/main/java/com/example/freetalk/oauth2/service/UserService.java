@@ -37,7 +37,7 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
         User user = saveOrUpdate(attributes);
         System.out.println(user);
-        httpSession.setAttribute("user", new SessionUserDto(user));
+        httpSession.setAttribute("email", new SessionUserDto(user));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
@@ -48,7 +48,6 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
     private User saveOrUpdate(OAuthDto attributes) { // 동일한 이메일이 있을경우 업데이트 동일한 이메일 없으면 저장
         User user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName()))
                 .orElse(attributes.toEntity());
 
         return userRepository.save(user);
