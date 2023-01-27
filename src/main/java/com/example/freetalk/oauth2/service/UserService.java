@@ -22,7 +22,7 @@ import java.util.Collections;
 @Service
 public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
-    private final HttpSession httpSession;
+    private final HttpSession session;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -49,7 +49,6 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
     private User saveOrUpdate(OAuthDto attributes) { // 동일한 이메일이 있을경우 업데이트 동일한 이메일 없으면 저장
         User user = userRepository.findByEmail(attributes.getEmail())
                 .orElse(attributes.toEntity());
-
         return userRepository.save(user);
     }
 }

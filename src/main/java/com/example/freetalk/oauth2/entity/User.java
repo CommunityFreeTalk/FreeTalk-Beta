@@ -15,9 +15,11 @@ import javax.persistence.*;
 public class User {
 
     @Id
+    @Column(name = "u_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "u_id")
     private Long id;
+
 
     @Column(nullable = false)
     private String email;
@@ -28,10 +30,10 @@ public class User {
 
     @Builder
     public User(String email, Role role) {
+
         this.email = email;
         this.role = role;
     }
-
 
     public String getRoleKey() {
         return this.role.getKey();

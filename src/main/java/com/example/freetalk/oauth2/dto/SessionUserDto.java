@@ -14,11 +14,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 public class SessionUserDto implements Serializable {
-    private String name;
     private String email;
 
     public SessionUserDto(User user) {
         this.email = user.getEmail();
-
     }
 }
