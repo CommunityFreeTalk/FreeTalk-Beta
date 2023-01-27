@@ -23,9 +23,6 @@ public class SearchController {
         String[] keywordList  = keyword.split(" ");
         List<String> keywords = Arrays.stream(keywordList).collect(Collectors.toList());
         List<ResultGroupDTO> list = ss.selectByHashTag(keywordList);
-        for (ResultGroupDTO dto:list) {
-            System.out.println(dto.toString());
-        }
         model.addAttribute("keywords",keywords);
         model.addAttribute("keyword",keyword);
         model.addAttribute("communityList",list);

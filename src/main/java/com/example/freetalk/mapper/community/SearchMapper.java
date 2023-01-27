@@ -10,4 +10,6 @@ public interface SearchMapper {
 
     List<ResultGroupDTO> selectBySingleHashTag(String keyword);
 
+    List<ResultGroupDTO> selectByHashTagList(List<String> list);
+
 }

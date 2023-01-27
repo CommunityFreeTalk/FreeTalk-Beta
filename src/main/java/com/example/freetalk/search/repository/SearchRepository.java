@@ -16,4 +16,8 @@ public class SearchRepository {
     public List<ResultGroupDTO> selectBySingleHashTag(String keyword){
         return cm.selectBySingleHashTag(keyword);
     }
+
+    public List<ResultGroupDTO> selectByHashTagList(List<String> list){
+        return cm.selectByHashTagList(list);
+    }
 }
