@@ -29,10 +29,10 @@ public class SocialLoginController {
         return "index";
     }
 
-    @GetMapping("/test")
-    public @ResponseBody String test(@AuthenticationPrincipal OAuth2User principal) {
-
-        return principal.getAttribute("email");
-    }
+//    @GetMapping("/test")
+//    public @ResponseBody String test(@AuthenticationPrincipal OAuth2User principal) {
+//
+//        return principal.getAttribute("email");
+//    }
 
 }

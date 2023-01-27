@@ -20,5 +20,6 @@ public class SessionUserDto implements Serializable {
     public SessionUserDto(User user) {
         this.name = user.getName();
         this.email = user.getEmail();
+
     }
 }

@@ -35,9 +35,9 @@ public class User {
         this.role = role;
     }
 
-    public User update(String name, String picture) {
+    public User update(String name) {
         this.name = name;
-
+        //this.picture = picture;
         return this;
     }
 
@@ -45,4 +45,6 @@ public class User {
     public String getRoleKey() {
         return this.role.getKey();
     }
+
+
 }

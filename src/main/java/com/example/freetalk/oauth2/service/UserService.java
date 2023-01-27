@@ -26,15 +26,14 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2UserService delegate = new DefaultOAuth2UserService();
+        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration()
                 .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-        OAuthDto attributes = OAuthDto.
-                of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        OAuthDto attributes = OAuthDto.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         User user = saveOrUpdate(attributes);
         System.out.println(user);
@@ -46,9 +45,10 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
                 attributes.getNameAttributeKey());
     }
 
-    private User saveOrUpdate(OAuthDto attributes) {
+
+    private User saveOrUpdate(OAuthDto attributes) { // 동일한 이메일이 있을경우 업데이트 동일한 이메일 없으면 저장
         User user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(),attributes.getEmail()))
+                .map(entity -> entity.update(attributes.getName()))
                 .orElse(attributes.toEntity());
 
         return userRepository.save(user);
