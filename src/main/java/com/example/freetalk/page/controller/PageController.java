@@ -33,8 +33,20 @@ public class PageController {
 
     }
 
-    @GetMapping("/community")
+    @GetMapping("/addCommunity")
     public String community(){
         return "addCommunity";
     }
+
+    @GetMapping("/sidemenu")
+    public String side(){
+        return "side";
+    }
+
+    @GetMapping("/community/communityPage")
+    public String communityPage(@RequestParam String c_key){
+        System.out.println(c_key);
+        return "index";
+    }
+
 }
