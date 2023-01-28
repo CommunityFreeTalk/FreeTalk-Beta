@@ -1,6 +1,7 @@
 package com.example.freetalk.oauth2.controller;
 
 import com.example.freetalk.oauth2.dto.SessionUserDto;
+import com.example.freetalk.oauth2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -17,6 +18,8 @@ public class SocialLoginController {
 
     private final HttpSession httpSession;
 
+    private final UserService userService;
+
     @GetMapping("/")
     public String index(Model model) {
 
@@ -27,11 +30,11 @@ public class SocialLoginController {
         return "index";
     }
 
-    @GetMapping("/test")
-    public @ResponseBody String test(@AuthenticationPrincipal OAuth2User principal) {
-
-        return principal.getAttribute("email");
-    }
+//    @GetMapping("/test")
+//    public @ResponseBody String test(@AuthenticationPrincipal OAuth2User principal) {
+//
+//        return principal.getAttribute("email");
+//    }
 
 
 

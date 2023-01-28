@@ -3,34 +3,48 @@ package com.example.freetalk.oauth2.dto;
 
 import com.example.freetalk.oauth2.entity.Role;
 import com.example.freetalk.oauth2.entity.User;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.Map;
 
 @Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class OAuthDto {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String name;
     private String email;
-    private String picture;
+    private  String registrationId;
+
 
     @Builder
     public OAuthDto(Map<String, Object> attributes,
                     String nameAttributeKey, String name,
-                    String email, String picture) {
+                    String email, String registrationId) {
         this.attributes = attributes;
         this.nameAttributeKey= nameAttributeKey;
         this.name = name;
         this.email = email;
-        this.picture = picture;
+        this.registrationId = registrationId;
     }
-
+    // auth 회사에 따른 객체 생성 // 1.oauth회사명[registrationId] // 2. 회원정보[nameAttributeKey] 3. 인증결과 [ attributes ]
     public static OAuthDto of(String registrationId,
                               String userNameAttributeName,
                               Map<String, Object> attributes) {
-        return ofGoogle(userNameAttributeName, attributes);
+
+        if (registrationId.equals("facebook")) {
+            return ofFacebook(userNameAttributeName, attributes);
+        } else if (registrationId.equals("naver")) {
+            return ofNaver("id", attributes);
+        } else if (registrationId.equals("google")) {
+            return ofGoogle(userNameAttributeName, attributes);
+        }else if (registrationId.equals("kakao")) {
+            return ofKakao(userNameAttributeName, attributes);
+        }else {
+            return null;
+        }
     }
 
     private static OAuthDto ofGoogle(String userNameAttributeName,
@@ -38,18 +52,46 @@ public class OAuthDto {
         return OAuthDto.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
+    private static OAuthDto ofFacebook(String userNameAttributeName,
+                                     Map<String, Object> attributes) {
+        return OAuthDto.builder()
+                .name((String) attributes.get("name"))
+                .email((String) attributes.get("email"))
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    private static OAuthDto ofNaver(String userNameAttributeName,
+                                       Map<String, Object> attributes) {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+        return OAuthDto.builder()
+                .name((String) response.get("name"))
+                .email((String) response.get("email"))
+                .attributes(response)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+    private static OAuthDto ofKakao(String userNameAttributeName,
+                                     Map<String, Object> attributes) {
+        Map<String,Object> response = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String,Object> profile = (Map<String, Object>) response.get("profile");
+        return OAuthDto.builder()
+                .name((String) profile.get("nickname"))
+                .email((String) response.get("email"))
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
 
     public User toEntity() {
         return User.builder()
-                .name(name)
                 .email(email)
-                .picture(picture)
                 .role(Role.GUSET)
                 .build();
     }

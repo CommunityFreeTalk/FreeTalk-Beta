@@ -17,31 +17,27 @@ User {
     @Id
     @Column(name = "u_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "u_id")
     private Long id;
-
-
 
 
     @Column(nullable = false)
     private String email;
 
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,name = "status")
+    @Column(nullable = false, name = "status")
     private Role role;
 
     @Builder
-    public User(String name, String email, String picture, Role role) {
+    public User(String email, Role role) {
+
         this.email = email;
         this.role = role;
-    }
-
-    public User update(String email) {
-        this.email = email;
-        return this;
     }
 
     public String getRoleKey() {
         return this.role.getKey();
     }
+
+
 }
