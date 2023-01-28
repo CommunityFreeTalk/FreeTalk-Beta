@@ -79,7 +79,7 @@
             <tbody>
             <tr th:each="group :${communityList}">
                 <th scope="row"><img src="/image/logo/40pxLogo.jpg"></th>
-                <td th:text="${group.getC_name()}"></td>
+                <td  style="cursor:pointer;" th:text="${group.getC_name()}" th:onclick="|location.href='@{http://localhost:8080/community/communityPage(c_key=${group.getC_key})}'|"></td>
                 <td th:text="${group.getHashTag()}"></td>
             </tr>
             </tbody>
