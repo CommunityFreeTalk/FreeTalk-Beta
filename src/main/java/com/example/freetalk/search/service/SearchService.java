@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -15,8 +16,8 @@ public class SearchService {
     private final SearchRepository sr;
 
     public List<ResultGroupDTO> selectByHashTag(String[] keywords){
-        if (keywords.length==1){
-            List<ResultGroupDTO> list = sr.selectBySingleHashTag(keywords[0]);
+        List<String> kws = Arrays.asList(keywords);
+        List<ResultGroupDTO> list = sr.selectByHashTagList(kws);
             if (list==null){
                 list= new ArrayList<>();
                 return list;
@@ -26,9 +27,5 @@ public class SearchService {
                 }
             }
             return list;
-            //다중 검색
-        }else return new ArrayList<>();
     }
-
-
 }
