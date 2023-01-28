@@ -6,7 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface CommunityMapper {
+public interface SearchMapper {
 
-    public List<ResultGroupDTO> selectBySingleHashTag(String keyword);
+    List<ResultGroupDTO> selectBySingleHashTag(String keyword);
+
+    List<ResultGroupDTO> selectByHashTagList(List<String> list);
+
 }

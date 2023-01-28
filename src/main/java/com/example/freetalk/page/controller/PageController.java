@@ -2,10 +2,10 @@ package com.example.freetalk.page.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Array;
@@ -20,10 +20,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PageController {
 
+//    @GetMapping("/")
+//    public String index(){
+//        return "index";
+//    }
+
+
+
     @GetMapping("/socialLogin")
     public String loginPage(){
         return "login";
     }
+    @GetMapping("/search")
+    @ResponseBody
+    public String search(@RequestParam String keyword){
+        String[] keywords  = keyword.split(" ");
+        return keyword;
+
 
     @GetMapping("/search")
     @ResponseBody
@@ -36,6 +49,13 @@ public class PageController {
     public String logout(HttpSession session){
         session.invalidate();
         return "index";
+    }
+
+    }
+
+    @GetMapping("/community")
+    public String community(){
+        return "addCommunity";
     }
 
 }
