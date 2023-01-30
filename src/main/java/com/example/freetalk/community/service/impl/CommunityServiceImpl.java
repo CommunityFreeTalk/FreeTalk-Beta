@@ -39,7 +39,7 @@ public class CommunityServiceImpl implements CommunityService {
             HashMap<String,Integer> map = new HashMap<>();
             map.put("c_key",(int)cmResp.getId());
             map.put("ht_id",(int)hashTagResp.getId());
-            System.out.println(map);
+            //JPA
             int result =tr.insertTagRelation(map);
             if (result<1)return "failed";
         }
