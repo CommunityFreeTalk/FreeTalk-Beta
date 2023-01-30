@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/community.css">
+    <!--    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>-->
+    <title>커뮤니티 만들기</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<header>
+    <div id="logo">
+        <a href="/"><img src="image/logo/Logo.png"  alt="Logo">
+        </a>
+    </div>
+    <div class="searchBox">
+        <input type="text" class="inputSearch" placeholder="커뮤니티 검색" autocomplete="off">
+        <a href="/search"> <button type="submit" class="searchButton">검색</button></a>
+    </div>
+
+    <div id = menu>
+        <a href="/">로그아웃</a>
+
+    </div>
+</header>
+<section class="comMake">
+    <form id="conForm" method="post" action="/addCommunity">
+        <input name="CommunityName" id="CommunityName" type="hidden" class="form-control"/>
+        <input name="thumb" id="thumb" type="hidden" class="form-control"/>
+        <input name="HashTag" id="HashTag" type="hidden" class="form-control"/>
+    </form>
+    <div class="comCover">
+        <label class="title">커뮤니티 이름</label>
+        <div class="inputCom">
+            <input value="" type="text" class="inputComName" id="c_name" maxlength="50" placeholder="커뮤니티 이름 입력">
+            <input value="" type="text" class="inputComTagName" id="c_tag" maxlength="50" placeholder="커뮤니티 태그 입력 (공백으로 구분)">
+        </div>
+        <div class="coverSelect">
+            <div class="mainCover">
+                <img id ="example-img" src="/image/cover/dog.jpg" class="selectedCover" alt="">
+            </div>
+            <div class="coverList">
+                <h3>커버 선택</h3>
+                <ul class="list">
+                    <span class="coverImageUploader">
+                        <label for="thumb" class="labelAddPhoto">사진 추가</label>
+                        <form id="fileData" method="post" enctype="multipart/form-data">
+                            <input id="fileData" name="fileData" type="file" onchange="thumbImg()" class="form-control" />
+                        </form>
+                    </span>
+                </ul>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button type="button" onclick="location.href='/'" class="cancel">취소</button>
+            <button type="submit" onclick="subForm()" class="save">완료</button>
+        </div>
+
+    </div>
+
+    <script>
+        function thumbImg(){
+
+            var formData = new FormData($('#fileData')[0]);
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data', // 필수
+                url: '/pictures',
+                data: formData, // 필수
+                processData: false, // 필수
+                contentType: false, // 필수
+                cache: false,
+                //
+                success: function (result) {
+                    console.log("try");
+                    $("#mainCover").html(result);
+                    $("#thumb").val(result);
+                    console.log(result);
+
+                }, error: function (e) {
+                    console.log(e);
+
+                }
+
+
+            });
+
+
+        }
+
+        function subForm(){
+
+            var CommunityName = $("#c_name").val();
+            var HashTag = $("#c_tag").val();
+
+
+            $("#CommunityName").val(CommunityName);
+            $("#HashTag").val(HashTag);
+
+            if($("#CommunityName").val().length<1||$("#HashTag").val().length<1||$("#thumb").val().length<1){
+                alert("빈칸없이 작성해주세요.");
+                return;
+            }
+
+
+
+            $.ajax({
+                url:"/addCommunity",
+                data:{
+                    "CommunityName":CommunityName,
+                    "HashTag":HashTag,
+                    "thumb":$("#thumb").val()
+                },
+                type:"POST",
+                success:function(data){
+                    if(data=='success'){
+                        alert("커뮤니티 등록 성공");
+                        location.href="/";
+                    } else{
+                        alert("커뮤니티 등록 실패");
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+       function readImage(input) {
+           if(input.files && input.files[0]) {
+               const reader = new FileReader()
+               reader.onload = e => {
+                   const previewImage = document.getElementById("example-img")
+                    previewImage.src = e.target.result
+                     }
+                         reader.readAsDataURL(input.files[0])
+                     }
+             }
+           const inputImage = document.getElementById("fileData")
+           inputImage.addEventListener("change", e => {
+               readImage(e.target)
+           })
+        </script>
+</section>
+</div>
+</body>
+</html>

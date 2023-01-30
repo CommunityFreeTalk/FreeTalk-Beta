@@ -84,7 +84,18 @@ body{
     font-size: 30px;
     font-weight: 400;
     background-color: rgba(200,200,200,0.11);
+    margin-top: 10px;
 
+}
+.inputComTagName{
+    width: 100%;
+    line-height: 54px;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 30px;
+    font-weight: 400;
+    background-color: rgba(200,200,200,0.11);
+    margin-top: 30px;
 }
 .coverSelect{
    margin-top: 30px;
@@ -105,6 +116,7 @@ body{
 }
 .coverList{
     padding-left: 320px;
+    padding-top: 150px;
     width: 540px;
     box-sizing: border-box;
 }
@@ -112,41 +124,9 @@ body{
     height: 30px;
     font-size: 12px;
 }
-.makeType{
-    position: relative;
-    margin-top: 200px;
-}
 
-.type {
-    margin-top: 10px;
-    position: relative;
-    background-color: white;
-}
-.typeList{
-    display:flex;
-    padding: 28px 25px 24px 44px;
-
-}
-.typeListItem{
-    width: 33.33%;
-    float: none;
-    list-style: none;
-}
-
-.checkLabel{
-    position: relative;
-    display: block;
-    padding-left: 20px;
-
-}
-
-.msg{
-    display: block;
-    font-size: 12px;
-
-}
 .buttons{
-    margin: 40px 0 60px;
+    margin: 100px 0 60px;
     text-align: center;
 
 }

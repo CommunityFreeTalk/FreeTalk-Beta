@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
 @Controller
 @RequiredArgsConstructor
 public class PageController {
@@ -33,8 +29,8 @@ public class PageController {
 
     }
 
-    @GetMapping("/community")
-    public String community(){
-        return "community";
+    @GetMapping("/addCommunity")
+    public String addCommunity(){
+        return "addCommunity";
     }
 }
