@@ -1,5 +1,6 @@
 package com.example.freetalk.community.dto;
 
+import com.example.freetalk.community.entity.Posting;
 import lombok.*;
 
 @NoArgsConstructor
@@ -14,4 +15,11 @@ public class PostingDTO {
     private Long c_key;
     private Long u_id;
 
+    public Posting toEntity(){
+        return Posting.builder()
+                .c_key(c_key)
+                .u_id(u_id)
+                .w_contents(content)
+                .w_title(postName).build();
+    }
 }
