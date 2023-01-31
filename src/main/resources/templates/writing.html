@@ -146,13 +146,15 @@
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script th:inline="javascript">
+    var c_key = [[${c_key}]];
+</script>
 <script>
 
     function subForm(){
         oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
         var content = $("#smartEditor").val();
         var postName = $("#preproductname").val();
-
         if(postName.length<1){
             alert("제목을 작성해주세요.");
             return;
@@ -163,7 +165,8 @@
             data:
                 {
                     "content": content,
-                    "postName":postName
+                    "postName":postName,
+                    "c_key":c_key
                 },
             success: function (data) {
                 if(data=='success'){
