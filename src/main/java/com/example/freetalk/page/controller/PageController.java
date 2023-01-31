@@ -29,15 +29,8 @@ public class PageController {
 
     @GetMapping("/search")
     @ResponseBody
-    public String search(@RequestParam String keyword){
-        String[] keywords  = keyword.split(" ");
-        return keyword;
-
-
-    @GetMapping("/search")
-    @ResponseBody
-    public String search(@RequestParam String keyword){
-        String[] keywords  = keyword.split(" ");
+    public String search(@RequestParam String keyword) {
+        String[] keywords = keyword.split(" ");
         return keyword;
     }
 
@@ -47,7 +40,7 @@ public class PageController {
         return "index";
     }
 
-    }
+
 
     @GetMapping("/addCommunity")
     public String community(){
