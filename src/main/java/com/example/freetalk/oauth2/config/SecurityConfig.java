@@ -32,6 +32,8 @@ public class SecurityConfig {
                         USER.name())
                 .anyRequest().authenticated()
                 .and()
+                .formLogin()
+                .loginPage("/socialLogin").permitAll().and()
                 .logout()
                 .logoutSuccessUrl("/")
                 .and()
