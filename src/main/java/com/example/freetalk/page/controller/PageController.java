@@ -49,4 +49,11 @@ public class PageController {
         return "index";
     }
 
+    @GetMapping("/posting")
+    public String writing(){
+        return "writing";
+    }
+
+
+
 }
