@@ -14,17 +14,12 @@ import java.util.StringTokenizer;
 @RequiredArgsConstructor
 public class PageController {
 
-//    @GetMapping("/")
-//    public String index(){
-//        return "index";
-//    }
-
-
 
     @GetMapping("/socialLogin")
     public String loginPage(){
         return "login";
     }
+
     @GetMapping("/search")
     @ResponseBody
     public String search(@RequestParam String keyword){
