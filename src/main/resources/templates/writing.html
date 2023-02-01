@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/writing.css">
     <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
     <script src="/se2/js/HuskyEZCreator.js"></script>
     <title>FreeTalk</title>
@@ -16,38 +16,6 @@
         }
 
     </script>
-    <style>
-        .top-nav{
-            float: right;
-        }
-        .searchbar-header-wrap{
-            float: left;
-        }
-        .searchbar-header-wrap i{
-            line-height: 40px;
-            color : var( --midium-gray-color);
-            margin-left: -16%;
-        }
-        .search-header-input{
-            margin-top: 5px;
-        }
-        .logo-left{
-            width: 40px;
-            height: 40px;
-            float: left;
-            margin-left: 40px;
-            margin-top: 10px;
-            margin-right: 18px
-        }
-        .box{
-            justify-content: center;
-            align-content: center;
-        }
-        .row{
-            justify-content: center;
-            align-content: center;
-        }
-    </style>
 </head>
 <body>
 <header class="top-header">
@@ -55,7 +23,7 @@
         <a href="/"><img src="/image/logo/40pxLogo.jpg"></a>
     </div>
     <div class="searchbar-header-wrap">
-        <i class="fas fa-search"></i>
+        <i class="fas fa-search "></i>
         <form method="post" enctype="multipart/form-data" action="javascript:search()">
             <input class="search-header-input" type="text" id="textInput" placeholder="키워드를 입력해 주세요" th:value="${keyword}"/>
         </form>
