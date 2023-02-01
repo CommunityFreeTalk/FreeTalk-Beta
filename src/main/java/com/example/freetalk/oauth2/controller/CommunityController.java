@@ -18,10 +18,7 @@ public class CommunityController {
     private final PictureService ps;
 
     @PostMapping("/addCommunity")
-    public @ResponseBody String addCommunity(@RequestParam(value = "CommunityName") String name,
-                                             @RequestParam(value = "thumb") String image,
-                                             @RequestParam(value = "HashTag")String hashTag){
-        CommunityDto communityDto = new CommunityDto(name,hashTag,image);
+    public @ResponseBody String addCommunity(CommunityDto communityDto){
         System.out.println("controller"+ communityDto);
         return cs.insertCom(communityDto);
     }

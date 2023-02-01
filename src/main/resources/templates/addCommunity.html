@@ -15,8 +15,17 @@
         </a>
     </div>
     <div class="searchBox">
-        <input type="text" class="inputSearch" placeholder="커뮤니티 검색" autocomplete="off">
-        <a href="/search"> <button type="submit" class="searchButton">검색</button></a>
+<!--        <input type="text" class="inputSearch" placeholder="커뮤니티 검색" autocomplete="off">-->
+        <form method="post" enctype="multipart/form-data" action="javascript:search()">
+            <input class="search-header-input" type="text" id="textInput" placeholder="키워드를 입력해 주세요" th:value="${keyword}"/>
+        </form>
+        <script>
+            function search(param){
+                var addr = '/search/search?keyword=';
+                var txt = document.getElementById("textInput").value;
+                window.location.href = addr.concat(txt);
+            }
+        </script>
     </div>
 
     <div id = menu>
@@ -26,9 +35,9 @@
 </header>
 <section class="comMake">
     <form id="conForm" method="post" action="/addCommunity">
-        <input name="CommunityName" id="CommunityName" type="hidden" class="form-control"/>
+        <input name="communityName" id="communityName" type="hidden" class="form-control"/>
         <input name="thumb" id="thumb" type="hidden" class="form-control"/>
-        <input name="HashTag" id="HashTag" type="hidden" class="form-control"/>
+        <input name="hashTag" id="hashTag" type="hidden" class="form-control"/>
     </form>
     <div class="comCover">
         <label class="title">커뮤니티 이름</label>
@@ -93,14 +102,14 @@
 
         function subForm(){
 
-            var CommunityName = $("#c_name").val();
-            var HashTag = $("#c_tag").val();
+            var communityName = $("#c_name").val();
+            var hashTag = $("#c_tag").val();
 
 
-            $("#CommunityName").val(CommunityName);
-            $("#HashTag").val(HashTag);
+            $("#communityName").val(communityName);
+            $("#hashTag").val(hashTag);
 
-            if($("#CommunityName").val().length<1||$("#HashTag").val().length<1||$("#thumb").val().length<1){
+            if($("#communityName").val().length<1||$("#hashTag").val().length<1||$("#thumb").val().length<1){
                 alert("빈칸없이 작성해주세요.");
                 return;
             }
@@ -110,8 +119,8 @@
             $.ajax({
                 url:"/addCommunity",
                 data:{
-                    "CommunityName":CommunityName,
-                    "HashTag":HashTag,
+                    "communityName":communityName,
+                    "hashTag":hashTag,
                     "thumb":$("#thumb").val()
                 },
                 type:"POST",
@@ -120,7 +129,11 @@
                         alert("커뮤니티 등록 성공");
                         location.href="/";
                     } else{
-                        alert("커뮤니티 등록 실패");
+                        if(data=='existed'){
+                            alert("중복되는 이름 존재")
+                        }else {
+                            alert("커뮤니티 등록 실패");
+                        }
                     }
                 }
             });

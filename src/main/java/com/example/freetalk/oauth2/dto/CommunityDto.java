@@ -12,16 +12,16 @@ import javax.persistence.Column;
 @ToString
 public class CommunityDto {
 
-    private String name;
+    private String communityName;
 
-    private String HashTag;
-    private String image;
+    private String hashTag;
+    private String thumb;
 
     public Community toEntity(){
         return Community.builder()
-                .name(name)
+                .name(communityName)
                 .status("created")
-                .image(image)
+                .image(thumb)
                 .build();
     }
 }

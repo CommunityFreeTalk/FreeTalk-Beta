@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.freetalk.oauth2.mapper.HashTagMapper">
+
+    <insert id="insertHashTag" parameterType="com.example.freetalk.oauth2.dto.HashTagDto" useGeneratedKeys="true" keyProperty="ht_id" keyColumn="ht_id">
+
+        INSERT INTO ht
+            (ht_id,ht_name)
+        VALUES
+            (#{ht_id},#{ht_name})
+    </insert>
+    <select id="selectHashTag" parameterType="com.example.freetalk.oauth2.dto.HashTagDto" resultType="String">
+        SELECT ht_name
+        FROM ht
+        WHERE ht_name=(#{ht_name})
+    </select>
+    <select id="selectHashId" parameterType="com.example.freetalk.oauth2.dto.HashTagDto" resultType="Long">
+        SELECT ht_id
+        FROM ht
+        WHERE ht_name=(#{ht_name})
+    </select>
+
+
+</mapper>
