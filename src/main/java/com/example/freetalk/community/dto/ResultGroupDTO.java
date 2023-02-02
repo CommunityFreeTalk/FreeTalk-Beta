@@ -1,4 +1,4 @@
-package com.example.freetalk.search.dto;
+package com.example.freetalk.community.dto;
 
 import lombok.Getter;
 import lombok.Setter;
