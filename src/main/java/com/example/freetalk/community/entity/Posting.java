@@ -33,6 +33,9 @@ public class Posting {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "views")
+    private Long views;
+
 
     @Builder
     public Posting(Long u_id, Long c_key, String w_title, String w_contents) {
