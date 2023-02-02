@@ -1,7 +1,7 @@
-package com.example.freetalk.search.service;
+package com.example.freetalk.community.service.impl;
 
-import com.example.freetalk.search.dto.ResultGroupDTO;
-import com.example.freetalk.search.repository.SearchRepository;
+import com.example.freetalk.community.dto.ResultGroupDTO;
+import com.example.freetalk.community.repository.SearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
