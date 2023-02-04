@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/writing.css">
+    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+    <script src="/se2/js/HuskyEZCreator.js"></script>
+    <title>FreeTalk</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script>
+        function search(param){
+            var addr = '/search/search?keyword=';
+            var txt = document.getElementById("textInput").value;
+            window.location.href = addr.concat(txt);
+        }
+
+    </script>
+</head>
+<body>
+<header class="top-header">
+    <div class="logo-left">
+        <a href="/"><img src="/image/logo/40pxLogo.jpg"></a>
+    </div>
+    <div class="searchbar-header-wrap">
+        <i class="fas fa-search "></i>
+        <form method="post" enctype="multipart/form-data" action="javascript:search()">
+            <input class="search-header-input" type="text" id="textInput" placeholder="키워드를 입력해 주세요" th:value="${keyword}"/>
+        </form>
+    </div>
+    <nav class="top-nav">
+        <ul>
+            <li th:if="${session.user == null}"><a href="/socialLogin">소셜 로그인</a></li>
+            <li th:if="${session.user != null}"><a href="/logout">로그아웃</a></li>
+<!--            <li><a href="#">회원가입</a></li>-->
+            <li><a href="#"><i class="fas fa-bars"></i></a></li>
+<!--            사이드 메뉴 추가 (ex: 로그인-> join되어있는 커뮤니티 목록 보이기 -> 바로가기-->
+<!--            ex:비로그인 -> 로그인한 사용자만 이용 가능합니다. text-->
+        </ul>
+        <div class="profile_img_wrap">
+        </div>
+    </nav>
+</header>
+<div class="box" id="box">
+<div class="row" style="padding-top:28px;">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+        <label class="login2 pull-right pull-right-pro"  style="color:white;"></label>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <input style="color:black;"  name="preproductname" id="preproductname" type="text" placeholder="제목을 입력하세요." class="form-control" />
+    </div>
+</div>
+    <form id="conForm" method="post" action="/writing2">
+        <input name="productname1" id="productname1" type="hidden" class="form-control"/>
+        <input name="content1" id="content1" type="hidden" class="form-control"/>
+    </form>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+        <div class="jsx-2303464893 editor">
+            <div class="fr-box fr-basic fr-top" role="application">
+                <div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;background:white;">
+                    <textarea name="content" id="smartEditor" style="width: 100%; height: 412px; background:white;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-inner">
+        <div class="row" style="display: flex">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <button type="button" onclick="subForm()" class="btn btn-custon-four btn-success" style="padding: 1px 15px">등록하기</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="foot-links-wrap">
+        <div class="foot-links-wrap-right">
+            <ul>
+                <li><a href="#">광고</a></li>
+                <li><a href="#">비즈니스</a></li>
+                <li><a href="https://github.com/CommunityFreeTalk/FreeTalk-Beta">FreeTalk 정보</a></li>
+            </ul>
+        </div>
+        <div class="foot-links-wrap-left">
+            <ul>
+                <li><a href="#">개인정보처리방침</a></li>
+                <li><a href="#">약관</a></li>
+                <li><a href="#">설정</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</footer>
+</body>
+<script>
+
+    var oEditors = [];
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef : oEditors,
+        elPlaceHolder : "smartEditor",
+        //저는 textarea의 id와 똑같이 적어줬습니다.
+        sSkinURI : "../se2/SmartEditor2Skin.html",
+        //경로를 꼭 맞춰주세요!
+        fCreator : "createSEditor2",
+        htParams : {
+            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseToolbar : true,
+            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseVerticalResizer : false,
+            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseModeChanger : true } });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script th:inline="javascript">
+    var c_key = [[${c_key}]];
+</script>
+<script>
+
+    function subForm(){
+        oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+        var content = $("#smartEditor").val();
+        var postName = $("#preproductname").val();
+        if(postName.length<1){
+            alert("제목을 작성해주세요.");
+            return;
+        }
+        $.ajax({
+            url: "/posting",
+            type:"POST",
+            data:
+                {
+                    "content": content,
+                    "postName":postName,
+                    "c_key":c_key
+                },
+            success: function (data) {
+                if(data=='success'){
+                    alert("등록 성공");
+                    location.href="/";
+                }else{
+                    alert("등록 실패");
+                }
+            }
+        });
+
+    }
+
+</script>
+</html>

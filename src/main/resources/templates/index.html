@@ -19,9 +19,9 @@
     <nav class="top-nav">
         <ul>
 
-            <li><a th:if="${session.email==null}" href="/socialLogin">로그인</a></li>
-            <li><a th:unless="${session.email==null}" href="/Logout">로그아웃</a></li>
-            <li><a th:if="${session.email==null}" href="#">회원가입</a></li>
+            <li><a th:if="${session.user==null}" href="/socialLogin">로그인</a></li>
+            <li><a th:unless="${session.user==null}" href="/Logout">로그아웃</a></li>
+            <li><a th:if="${session.user==null}" href="#">회원가입</a></li>
             <li><a href="#"><i class="fas fa-bars"></i></a></li>
 <!--            사이드 메뉴 추가 (ex: 로그인-> join되어있는 커뮤니티 목록 보이기 -> 바로가기-->
 <!--            ex:비로그인 -> 로그인한 사용자만 이용 가능합니다. text-->

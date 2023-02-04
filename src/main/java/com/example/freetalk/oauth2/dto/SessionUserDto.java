@@ -15,8 +15,10 @@ import java.io.Serializable;
 @ToString
 public class SessionUserDto implements Serializable {
     private String email;
+    private Long id;
 
     public SessionUserDto(User user) {
         this.email = user.getEmail();
+        this.id = user.getId();
     }
 }
