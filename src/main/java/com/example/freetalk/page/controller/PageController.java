@@ -2,6 +2,7 @@ package com.example.freetalk.page.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,28 +21,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PageController {
 
-//    @GetMapping("/")
-//    public String index(){
-//        return "index";
-//    }
-
-
 
     @GetMapping("/socialLogin")
     public String loginPage(){
         return "login";
     }
-    @GetMapping("/search")
-    @ResponseBody
-    public String search(@RequestParam String keyword){
-        String[] keywords  = keyword.split(" ");
-        return keyword;
-
 
     @GetMapping("/search")
     @ResponseBody
-    public String search(@RequestParam String keyword){
-        String[] keywords  = keyword.split(" ");
+    public String search(@RequestParam String keyword) {
+        String[] keywords = keyword.split(" ");
         return keyword;
     }
 
@@ -51,7 +40,7 @@ public class PageController {
         return "index";
     }
 
-    }
+
 
     @GetMapping("/addCommunity")
     public String community(){
@@ -68,6 +57,14 @@ public class PageController {
         System.out.println(c_key);
         return "index";
     }
+
+    @GetMapping("/posting")
+    public String writing(Model model){
+        model.addAttribute("c_key",1);//CommunityPage 완성시 수정
+        return "writing";
+    }
+
+
 
 }
 

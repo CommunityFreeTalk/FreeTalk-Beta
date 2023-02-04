@@ -26,12 +26,14 @@ public class SecurityConfig {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth2/authorization/**","/socialLogin","/", "/css/**", "/image/**",
-                        "/js/**").permitAll()
+                .antMatchers("/search/**","/oauth2/authorization/**","/socialLogin","/", "/css/**", "/image/**",
+                        "/js/**","/community/communityPage*").permitAll()
                 .antMatchers("/api/v1/**").hasRole(Role.
                         USER.name())
                 .anyRequest().authenticated()
                 .and()
+                .formLogin()
+                .loginPage("/socialLogin").permitAll().and()
                 .logout()
                 .logoutSuccessUrl("/")
                 .and()
