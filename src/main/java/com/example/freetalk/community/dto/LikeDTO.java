@@ -1,5 +1,8 @@
 package com.example.freetalk.community.dto;
 
+import com.example.freetalk.community.entity.Like;
+import com.example.freetalk.community.entity.LikeJPAEntity;
+import com.example.freetalk.community.entity.Dislike;
 import lombok.*;
 
 import static com.example.freetalk.community.entity.TableType.COMMENT;
@@ -18,7 +21,7 @@ public class LikeDTO {
     private Long userID;
 
 
-    public void setTableType(){
+    public void setTableTypeByEnum(){
         if (this.tableType.equals("posting")) {
             this.tableType = POSTING.getTableName();
         }
@@ -26,5 +29,24 @@ public class LikeDTO {
             this.tableType =COMMENT.getTableName();
         }
     }
+
+    public Like toLikeEntity(){
+        return new Like(LikeJPAEntity.builder()
+                .tableType(tableType)
+                .type_id(tableType_id)
+                .u_id(userID).build());
+    }
+
+    public Dislike toDislikeEntity(){
+        return new Dislike(LikeJPAEntity.builder()
+                .tableType(tableType)
+                .type_id(tableType_id)
+                .u_id(userID).build());
+    }
+
+    public LikeJPAEntity toJPAEntity(){
+        return new LikeJPAEntity(userID,tableType,tableType_id);
+    }
+
 
 }

@@ -7,6 +7,7 @@ import com.example.freetalk.community.service.impl.CommunityServiceImpl;
 import com.example.freetalk.community.service.PictureService;
 import com.example.freetalk.oauth2.dto.SessionUserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +52,6 @@ public class CommunityController {
     @PostMapping("/Like")
     private String like(LikeDTO dto,HttpSession session){
         SessionUserDto user = (SessionUserDto)session.getAttribute("user");
-        return "success";
+        return cs.like(dto,user);
     }
 }
