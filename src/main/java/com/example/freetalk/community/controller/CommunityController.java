@@ -1,6 +1,7 @@
 package com.example.freetalk.community.controller;
 
 import com.example.freetalk.community.dto.CommunityDTO;
+import com.example.freetalk.community.dto.LikeDTO;
 import com.example.freetalk.community.dto.PostingDTO;
 import com.example.freetalk.community.service.impl.CommunityServiceImpl;
 import com.example.freetalk.community.service.PictureService;
@@ -45,5 +46,11 @@ public class CommunityController {
     public String writing(PostingDTO dto, HttpSession session){
         SessionUserDto user = (SessionUserDto)session.getAttribute("user");
         return cs.addPosting(dto,user);
+    }
+
+    @PostMapping("/Like")
+    private String like(LikeDTO dto,HttpSession session){
+        SessionUserDto user = (SessionUserDto)session.getAttribute("user");
+        return "success";
     }
 }
