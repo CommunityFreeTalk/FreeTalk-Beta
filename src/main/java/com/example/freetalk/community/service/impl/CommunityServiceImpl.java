@@ -1,9 +1,6 @@
 package com.example.freetalk.community.service.impl;
 
-import com.example.freetalk.community.dto.CommunityDTO;
-import com.example.freetalk.community.dto.CommunityResp;
-import com.example.freetalk.community.dto.HashTagResp;
-import com.example.freetalk.community.dto.PostingDTO;
+import com.example.freetalk.community.dto.*;
 import com.example.freetalk.community.entity.HashTag;
 import com.example.freetalk.community.entity.Posting;
 import com.example.freetalk.community.repository.CommunityJPARepository;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -62,6 +60,18 @@ public class CommunityServiceImpl implements CommunityService {
             return "failed";
         }
 
+    }
+
+    @Override
+    public PostingResp selectPosting(Long index) {
+        PostingResp resp = null;
+
+        try{
+            Optional<Posting> posting = pstJPARepo.findById(index);
+            resp = new PostingResp(posting.get());
+        }catch(Exception e){}
+
+        return resp;
     }
 
 

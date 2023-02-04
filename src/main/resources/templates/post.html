@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/writing.css">
+    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+    <script src="/se2/js/HuskyEZCreator.js"></script>
+    <title>FreeTalk</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script>
+        function search(param){
+            var addr = '/search/search?keyword=';
+            var txt = document.getElementById("textInput").value;
+            window.location.href = addr.concat(txt);
+        }
+
+    </script>
+</head>
+
+<body>
+<header class="top-header">
+    <div class="logo-left">
+        <a href="/"><img src="/image/logo/40pxLogo.jpg"></a>
+    </div>
+    <div class="searchbar-header-wrap">
+        <i class="fas fa-search "></i>
+        <form method="post" enctype="multipart/form-data" action="javascript:search()">
+            <input class="search-header-input" type="text" id="textInput" placeholder="키워드를 입력해 주세요" th:value="${keyword}"/>
+        </form>
+    </div>
+    <nav class="top-nav">
+        <ul>
+            <li th:if="${session.user == null}"><a href="/socialLogin">소셜 로그인</a></li>
+            <li th:if="${session.user != null}"><a href="/logout">로그아웃</a></li>
+            <li><a href="#"><i class="fas fa-bars"></i></a></li>
+
+        </ul>
+        <div class="profile_img_wrap">
+        </div>
+    </nav>
+</header>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<div class="box" id="box">
+    <div>
+        <p>제목</p>
+        <p class="title" th:text="${view.getW_title()}"> </p>
+
+        <div id="content">
+
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="aaa" th:value="${view.getW_contents()}">
+
+
+
+<div  class="box_in">
+    <input type="text" name="comment_content" id="comment_content">
+    <button type="button">등록</button>
+    <input type="hidden" name="post_no" id="post_no">
+    <button>답글</button>
+    <button>삭제</button>
+    <button>수정</button>
+</div>
+
+
+
+
+<script>
+    let text = document.getElementById('aaa').value;
+    window.onload = function (){
+        $('#content').html(text)
+    }
+</script>
+
+<footer>
+    <div class="foot-links-wrap">
+        <div class="foot-links-wrap-right">
+            <ul>
+                <li><a href="#">광고</a></li>
+                <li><a href="#">비즈니스</a></li>
+                <li><a href="https://github.com/CommunityFreeTalk/FreeTalk-Beta">FreeTalk 정보</a></li>
+            </ul>
+        </div>
+        <div class="foot-links-wrap-left">
+            <ul>
+                <li><a href="#">개인정보처리방침</a></li>
+                <li><a href="#">약관</a></li>
+                <li><a href="#">설정</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</footer>
+
+
+<style>
+
+    .box {
+        width: 95%;
+        max-width: 1000px;
+        margin: 20px auto 20px auto;
+
+        box-shadow: 0px 0px 3px 0px black;
+        padding: 20px;
+    }
+
+    .box_in {
+        max-width: 1000px;
+        margin: 20px auto 20px auto;
+    }
+
+</style>
+
+</body>
+
+
+</html>
+

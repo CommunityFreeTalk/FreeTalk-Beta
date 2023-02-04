@@ -1,5 +1,9 @@
 package com.example.freetalk.page.controller;
 
+import com.example.freetalk.community.dto.PostingResp;
+import com.example.freetalk.community.entity.Posting;
+import com.example.freetalk.community.service.CommunityService;
+import com.example.freetalk.community.service.impl.CommunityServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 public class PageController {
+
+    private final CommunityServiceImpl communityServiceimpl;
 
 
     @GetMapping("/socialLogin")
@@ -62,6 +68,15 @@ public class PageController {
     public String writing(Model model){
         model.addAttribute("c_key",1);//CommunityPage 완성시 수정
         return "writing";
+    }
+
+    @GetMapping("/view")
+    public String view(@RequestParam("w_id") Long index, Model model){
+        PostingResp view = communityServiceimpl.selectPosting(index);
+        System.out.println(view.toString());
+
+        model.addAttribute("view",view);
+        return "post";
     }
 
 
