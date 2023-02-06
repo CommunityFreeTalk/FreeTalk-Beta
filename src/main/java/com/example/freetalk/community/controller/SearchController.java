@@ -1,7 +1,7 @@
 package com.example.freetalk.community.controller;
 
 import com.example.freetalk.community.dto.ResultGroupDTO;
-import com.example.freetalk.community.service.impl.SearchService;
+import com.example.freetalk.community.service.impl.SearchServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 public class SearchController {
-    private final SearchService ss;
+    private final SearchServiceImpl ss;
 
 
     @GetMapping("/search/search")
