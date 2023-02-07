@@ -1,7 +1,9 @@
 package com.example.freetalk.page.controller;
 
+import com.example.freetalk.community.dto.CommentResp;
 import com.example.freetalk.community.dto.PostingResp;
 import com.example.freetalk.community.entity.Posting;
+import com.example.freetalk.community.service.CommentService;
 import com.example.freetalk.community.service.CommunityService;
 import com.example.freetalk.community.service.impl.CommunityServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 public class PageController {
 
     private final CommunityServiceImpl communityServiceimpl;
+
+    private final CommentService cs;
 
 
     @GetMapping("/socialLogin")
@@ -73,9 +77,11 @@ public class PageController {
     @GetMapping("/view")
     public String view(@RequestParam("w_id") Long index, Model model){
         PostingResp view = communityServiceimpl.selectPosting(index);
-        System.out.println(view.toString());
+        List<CommentResp> commentList = cs.findAllComment(index);
 
+        System.out.println(commentList);
         model.addAttribute("view",view);
+        model.addAttribute("commentList",commentList);
         return "post";
     }
 

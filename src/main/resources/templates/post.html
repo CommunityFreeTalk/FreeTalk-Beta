@@ -61,12 +61,27 @@
 
 <div  class="box_in">
     <input type="text" name="comment_content" id="comment_content">
-    <button type="button">등록</button>
+    <button id = "btn_comment_save" type="button">등록</button>
     <input type="hidden" name="post_no" id="post_no">
     <button>답글</button>
     <button>삭제</button>
     <button>수정</button>
 </div>
+
+<div class="card">
+    <div class="card-header">댓글</div>
+    <ul id="reply--box" class="list-group" th:each="comment : ${commentList}">
+        <li th:id="'comment--' + ${comment.getCom_id()}" class="list-group-item d-flex justify-content-between">
+            <div th:text="${comment.getCom_contents()}"></div>
+            <div class="d-flex">
+                <span class="text-monospace mr-1">작성자: &nbsp;</span><div class="text-monospace mr-1" th:text="${comment.getCom_u_id()}"></div>
+                <button class="badge btn-warning">수정</button><span> | </span>
+                <button class="badge btn-danger">삭제</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
 
 
 
