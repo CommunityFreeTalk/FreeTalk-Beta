@@ -3,22 +3,6 @@
 
 <mapper namespace="com.example.freetalk.mapper.community.SearchMapper">
 
-    <select id="selectBySingleHashTag" parameterType="String" resultType="com.example.freetalk.community.dto.ResultGroupDTO">
-        SELECT c.*,
-               Group_concat(h.ht_name) as hashTag
-        FROM   cm c
-                   LEFT JOIN tr t
-                             ON c.c_key = t.c_key
-                   LEFT JOIN ht h
-                             ON t.ht_id = h.ht_id
-        WHERE  c.c_key = ANY (SELECT c_key
-                              FROM   tr
-                              WHERE  ht_id = (SELECT ht_id
-                                              FROM   ht
-                                              WHERE  ht_name =  #{keyword}))
-        GROUP  BY c_key;
-    </select>
-
     <select id="selectByHashTagList" parameterType="java.util.List" resultType="com.example.freetalk.community.dto.ResultGroupDTO">
         SELECT c.*,
                Group_concat(h.ht_name) as hashTag
@@ -34,7 +18,7 @@
                                               WHERE  ht_name IN
         <foreach collection="list" item="value" index="idx" separator="," open="(" close=")">
             #{value}
-        </foreach>))
+        </foreach>) and status ='created')
         GROUP  BY c_key;
     </select>
 
