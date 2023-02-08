@@ -1,16 +1,15 @@
 package com.example.freetalk.community.controller;
 
+import com.example.freetalk.community.dto.CommentDto;
 import com.example.freetalk.community.dto.CommunityDTO;
 import com.example.freetalk.community.dto.LikeDTO;
 import com.example.freetalk.community.dto.PostingDTO;
+import com.example.freetalk.community.service.CommentService;
 import com.example.freetalk.community.service.impl.CommunityServiceImpl;
 import com.example.freetalk.community.service.PictureService;
 import com.example.freetalk.oauth2.dto.SessionUserDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +22,8 @@ public class CommunityController {
 
     private final PictureService pics;
     private final CommunityServiceImpl cs;
+
+    private final CommentService commentService;
 
     @PostMapping("/pictures")
     public String insertPictures(@RequestParam("fileData") MultipartFile fileData) throws IOException {
@@ -54,6 +55,16 @@ public class CommunityController {
     @PostMapping("/Like")
     private String like(LikeDTO dto,HttpSession session){
         SessionUserDto user = (SessionUserDto)session.getAttribute("user");
+        return "success";
+    }
+
+    @PostMapping("/view/commentPost")
+    public String insertComment(CommentDto commentDto,HttpSession session){
+        SessionUserDto user = (SessionUserDto)session.getAttribute("user");
+        commentDto.setCom_u_id(user.getId());
+        System.out.println(commentDto);
+
+        commentService.insertComment(commentDto);
         return "success";
     }
 }

@@ -56,18 +56,45 @@
 
 
 <input type="hidden" id="aaa" th:value="${view.getW_contents()}">
-
+<input type="hidden" id="w_id" th:value="${view.getW_id()}"}>
 
 
 <div  class="box_in">
     <input type="text" name="comment_content" id="comment_content">
-    <button id = "btn_comment_save" type="button">등록</button>
+    <button id = "btn_comment_save" type="submit" onclick="commentPost()">등록</button>
     <input type="hidden" name="post_no" id="post_no">
     <button>답글</button>
     <button>삭제</button>
     <button>수정</button>
 </div>
+<script>
+    function commentPost() {
 
+        var w_id = $('#w_id').val();
+        var com_contents = $('#comment_content').val();
+
+        $("#com_contents").val(com_contents);
+        $("#w_id").val(w_id);
+
+        $.ajax({
+            type: "post",
+            url: "/view/commentPost",
+            data: {"com_contents": com_contents,
+                "w_id": w_id
+            },
+
+            success: function (data) {
+                if (data.result == "success") {
+                    alert("등록되었습니다.")
+                }
+            },
+            error: function (request, status, error) {
+                alert("code: " + request.status + "\n" + "error: " + error);
+            }
+
+        });location.reload();
+    }
+</script>
 <div class="card">
     <div class="card-header">댓글</div>
     <ul id="reply--box" class="list-group" th:each="comment : ${commentList}">

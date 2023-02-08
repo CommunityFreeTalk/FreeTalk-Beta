@@ -20,5 +20,6 @@ public class CommentRepository {
 
     public int insertComment(CommentDto commentDto){
         return cm.insertComment(commentDto);
+
     }
 }

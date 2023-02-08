@@ -12,13 +12,14 @@
         order by
             com_id desc
     </select>
-    <insert id="insertComment" parameterType="com.example.freetalk.community.dto.CommentDto" useGeneratedKeys="true" keyProperty="com_id">
+    <insert id="insertComment" parameterType="com.example.freetalk.community.dto.CommentDto" useGeneratedKeys="true" keyProperty="com_id" keyColumn="com_id">
         insert into com
-            com_id,w_id,com_u_id,com_contents,indate,status
+            (com_id,w_id,com_u_id,com_contents,indate,status)
         values
-            (${com_id},${w_id},${com_u_id},${com_contents},now(),${status})
+            (#{com_id},#{w_id},#{com_u_id},#{com_contents},now(),'created')
 
     </insert>
+
 
 
 

@@ -25,14 +25,7 @@ public class CommentService {
     }
 
 
-//    public String commentSave(CommentDto commentDto){
-//        if(pr.findById(commentDto.getW_id()).isPresent()) {
-//            cr.save(commentDto.toEntity());
-//            return "success";
-//        }else{
-//            return "failed";
-//        }
-//    }
+
 
 
 }
