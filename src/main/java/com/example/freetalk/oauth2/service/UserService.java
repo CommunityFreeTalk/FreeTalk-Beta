@@ -37,7 +37,7 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
         User user = saveOrUpdate(attributes);
         System.out.println(user);
-        httpSession.setAttribute("email", new SessionUserDto(user));
+        session.setAttribute("user", new SessionUserDto(user));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),

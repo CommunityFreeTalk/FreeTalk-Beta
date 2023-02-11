@@ -1,7 +1,14 @@
 package com.example.freetalk.page.controller;
 
+import com.example.freetalk.community.dto.CommentResp;
+import com.example.freetalk.community.dto.PostingResp;
+import com.example.freetalk.community.entity.Posting;
+import com.example.freetalk.community.service.CommentService;
+import com.example.freetalk.community.service.CommunityService;
+import com.example.freetalk.community.service.impl.CommunityServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,28 +27,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PageController {
 
-//    @GetMapping("/")
-//    public String index(){
-//        return "index";
-//    }
+    private final CommunityServiceImpl communityServiceimpl;
 
+    private final CommentService cs;
 
 
     @GetMapping("/socialLogin")
     public String loginPage(){
         return "login";
     }
-    @GetMapping("/search")
-    @ResponseBody
-    public String search(@RequestParam String keyword){
-        String[] keywords  = keyword.split(" ");
-        return keyword;
-
 
     @GetMapping("/search")
     @ResponseBody
-    public String search(@RequestParam String keyword){
-        String[] keywords  = keyword.split(" ");
+    public String search(@RequestParam String keyword) {
+        String[] keywords = keyword.split(" ");
         return keyword;
     }
 
@@ -51,7 +50,7 @@ public class PageController {
         return "index";
     }
 
-    }
+
 
     @GetMapping("/addCommunity")
     public String community(){
@@ -68,6 +67,25 @@ public class PageController {
         System.out.println(c_key);
         return "index";
     }
+
+    @GetMapping("/posting")
+    public String writing(Model model){
+        model.addAttribute("c_key",1);//CommunityPage 완성시 수정
+        return "writing";
+    }
+
+    @GetMapping("/view")
+    public String view(@RequestParam("w_id") Long index, Model model){
+        PostingResp view = communityServiceimpl.selectPosting(index);
+        List<CommentResp> commentList = cs.findAllComment(index);
+
+        System.out.println(commentList);
+        model.addAttribute("view",view);
+        model.addAttribute("commentList",commentList);
+        return "post";
+    }
+
+
 
 }
 

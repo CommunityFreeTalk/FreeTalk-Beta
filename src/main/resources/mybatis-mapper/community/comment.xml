@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.freetalk.mapper.community.CommentMapper">
+    <select id = "findAllComment" parameterType="Long" resultType="com.example.freetalk.community.dto.CommentResp">
+        select
+            com_id,w_id,com_u_id,com_contents,indate,status
+        from
+            com
+        where
+            w_id = #{w_id}
+        order by
+            com_id desc
+    </select>
+    <select id = "findCommentById" parameterType="Long" resultType="Long">
+        select
+            com_u_id
+        from
+            com
+        where
+            com_id = #{com_id}
+    </select>
+
+
+    <insert id="insertComment" parameterType="com.example.freetalk.community.dto.CommentDto" useGeneratedKeys="true" keyProperty="com_id" keyColumn="com_id">
+        insert into com
+            (com_id,w_id,com_u_id,com_contents,indate,status)
+        values
+            (#{com_id},#{w_id},#{com_u_id},#{com_contents},now(),'created')
+
+    </insert>
+
+    <update id="updateComment" parameterType="com.example.freetalk.community.dto.CommentDto">
+        update com
+        set com_contents = #{com_contents}
+        where com_id = #{com_id}
+    </update>
+
+    <delete id="deleteComment" parameterType="Long">
+        delete from com
+        where com_id = #{com_id}
+    </delete>
+
+
+
+</mapper>

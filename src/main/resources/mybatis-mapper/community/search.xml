@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.freetalk.mapper.community.SearchMapper">
 
-    <select id="selectBySingleHashTag" parameterType="String" resultType="com.example.freetalk.search.dto.ResultGroupDTO">
+    <select id="selectBySingleHashTag" parameterType="String" resultType="com.example.freetalk.community.dto.ResultGroupDTO">
         SELECT c.*,
                Group_concat(h.ht_name) as hashTag
         FROM   cm c
@@ -19,7 +19,7 @@
         GROUP  BY c_key;
     </select>
 
-    <select id="selectByHashTagList" parameterType="java.util.List" resultType="com.example.freetalk.search.dto.ResultGroupDTO">
+    <select id="selectByHashTagList" parameterType="java.util.List" resultType="com.example.freetalk.community.dto.ResultGroupDTO">
         SELECT c.*,
                Group_concat(h.ht_name) as hashTag
         FROM   cm c

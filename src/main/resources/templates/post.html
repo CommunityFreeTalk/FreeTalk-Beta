@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/writing.css">
+    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+    <script src="/se2/js/HuskyEZCreator.js"></script>
+    <title>FreeTalk</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script>
+        function search(param){
+            var addr = '/search/search?keyword=';
+            var txt = document.getElementById("textInput").value;
+            window.location.href = addr.concat(txt);
+        }
+
+    </script>
+</head>
+
+<body>
+<header class="top-header">
+    <div class="logo-left">
+        <a href="/"><img src="/image/logo/40pxLogo.jpg"></a>
+    </div>
+    <div class="searchbar-header-wrap">
+        <i class="fas fa-search "></i>
+        <form method="post" enctype="multipart/form-data" action="javascript:search()">
+            <input class="search-header-input" type="text" id="textInput" placeholder="키워드를 입력해 주세요" th:value="${keyword}"/>
+        </form>
+    </div>
+    <nav class="top-nav">
+        <ul>
+            <li th:if="${session.user == null}"><a href="/socialLogin">소셜 로그인</a></li>
+            <li th:if="${session.user != null}"><a href="/logout">로그아웃</a></li>
+            <li><a href="#"><i class="fas fa-bars"></i></a></li>
+
+        </ul>
+        <div class="profile_img_wrap">
+        </div>
+    </nav>
+</header>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<div class="box" id="box">
+    <div>
+        <p>제목</p>
+        <p class="title" th:text="${view.getW_title()}"> </p>
+
+        <div id="content">
+
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="aaa" th:value="${view.getW_contents()}">
+<input type="hidden" id="w_id" th:value="${view.getW_id()}"}>
+
+
+
+<div  class="box_in">
+    <input type="text" name="comment_content" id="comment_content">
+    <button id = "btn_comment_save" type="button" onclick="commentPost()">등록</button>
+    <input type="hidden" name="post_no" id="post_no">
+    <button type="button" >답글</button>
+    <button type="button" >삭제</button>
+    <button type="button" >수정</button>
+</div>
+<script>
+    function commentPost() {
+
+        var w_id = $('#w_id').val();
+        var com_contents = $('#comment_content').val();
+
+
+        if(com_contents.length==0){
+            alert("내용이 비어있습니다");
+            return;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/view/commentPost",
+            data: {"com_contents": com_contents,
+                "w_id": w_id
+            },
+
+            success: function (data) {
+                if (data == 'success') {
+                    alert("등록성공");
+                    location.reload();
+                }else{
+                    alert("등록실패")
+                }
+            },
+
+        });
+    }
+</script>
+<div class="card">
+    <div class="card-header">댓글</div>
+    <ul id="reply--box" class="list-group" th:each="comment : ${commentList}">
+        <li th:id="'comment--' + ${comment.getCom_id()}" class="list-group-item d-flex justify-content-between">
+            <div th:text="${comment.getCom_contents()}"></div>
+            <div class="d-flex">
+                <input type="hidden" id="com_id" th:value="${comment.getCom_id()}"}>
+                <span class="text-monospace mr-1">작성자: &nbsp;</span><div class="text-monospace mr-1"  th:text="${comment.getCom_u_id()}"></div>
+                <button class="badge btn-warning" onclick="updateComment()">수정</button><span> | </span>
+                <button class="badge btn-danger"  onclick="deleteComment(${comment.getCom_id()})">삭제</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+
+
+<script>
+    function updateComment() {
+
+        var com_id = $('#com_id').val();
+        var com_contents = $('#comment_content').val();
+
+        $("#com_contents").val(com_contents);
+        $("#com_id").val(com_id);
+
+        $.ajax({
+            type: "post",
+            url: "/view/updateComment",
+            data: {"com_contents": com_contents,
+                "com_id": com_id
+            },
+
+            success: function (data) {
+                if (data.result == "success") {
+                    alert("등록되었습니다.")
+                }
+            },
+            error: function (request, status, error) {
+                alert("code: " + request.status + "\n" + "error: " + error);
+            }
+
+        });location.reload();
+    }
+</script>
+<script>
+    function deleteComment(com_id) {
+
+        var com_id = $('#com_id').val();
+
+        alert(com_id);
+        $("#com_id").val(com_id);
+
+        $.ajax({
+            type: "post",
+            url: "/view/deleteComment",
+            data: {"com_id": com_id
+            },
+
+            success: function (data) {
+                if (data == 'success') {
+                    alert("삭제되었습니다.");
+                    location.reload();
+                }
+            },
+            error: function (request, status, error) {
+                alert("code: " + request.status + "\n" + "error: " + error);
+                location.reload();
+            }
+
+        });
+    }
+
+
+</script>
+
+<script>
+    let text = document.getElementById('aaa').value;
+    window.onload = function (){
+        $('#content').html(text)
+    }
+</script>
+
+<footer>
+    <div class="foot-links-wrap">
+        <div class="foot-links-wrap-right">
+            <ul>
+                <li><a href="#">광고</a></li>
+                <li><a href="#">비즈니스</a></li>
+                <li><a href="https://github.com/CommunityFreeTalk/FreeTalk-Beta">FreeTalk 정보</a></li>
+            </ul>
+        </div>
+        <div class="foot-links-wrap-left">
+            <ul>
+                <li><a href="#">개인정보처리방침</a></li>
+                <li><a href="#">약관</a></li>
+                <li><a href="#">설정</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</footer>
+
+
+<style>
+
+    .box {
+        width: 95%;
+        max-width: 1000px;
+        margin: 20px auto 20px auto;
+
+        box-shadow: 0px 0px 3px 0px black;
+        padding: 20px;
+    }
+
+    .box_in {
+        max-width: 1000px;
+        margin: 20px auto 20px auto;
+    }
+
+</style>
+
+</body>
+
+
+</html>
+
