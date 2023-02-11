@@ -18,8 +18,20 @@ public class CommentRepository {
         return cm.findAllComment(w_id);
     }
 
+    public Long findCommentById(Long com_id){
+        return cm.findCommentById(com_id);
+    }
+
     public int insertComment(CommentDto commentDto){
         return cm.insertComment(commentDto);
 
+    }
+
+    public int deleteComment(Long com_id){
+        return cm.deleteComment(com_id);
+    }
+
+    public int  updateComment(CommentDto commentDto){
+        return cm.updateComment(commentDto);
     }
 }

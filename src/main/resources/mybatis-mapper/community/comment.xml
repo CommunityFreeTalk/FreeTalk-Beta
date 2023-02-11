@@ -12,6 +12,16 @@
         order by
             com_id desc
     </select>
+    <select id = "findCommentById" parameterType="Long" resultType="Long">
+        select
+            com_u_id
+        from
+            com
+        where
+            com_id = #{com_id}
+    </select>
+
+
     <insert id="insertComment" parameterType="com.example.freetalk.community.dto.CommentDto" useGeneratedKeys="true" keyProperty="com_id" keyColumn="com_id">
         insert into com
             (com_id,w_id,com_u_id,com_contents,indate,status)
@@ -20,7 +30,16 @@
 
     </insert>
 
+    <update id="updateComment" parameterType="com.example.freetalk.community.dto.CommentDto">
+        update com
+        set com_contents = #{com_contents}
+        where com_id = #{com_id}
+    </update>
 
+    <delete id="deleteComment" parameterType="Long">
+        delete from com
+        where com_id = #{com_id}
+    </delete>
 
 
 

@@ -1,9 +1,6 @@
 package com.example.freetalk.community.controller;
 
-import com.example.freetalk.community.dto.CommentDto;
-import com.example.freetalk.community.dto.CommunityDTO;
-import com.example.freetalk.community.dto.LikeDTO;
-import com.example.freetalk.community.dto.PostingDTO;
+import com.example.freetalk.community.dto.*;
 import com.example.freetalk.community.service.CommentService;
 import com.example.freetalk.community.service.impl.CommunityServiceImpl;
 import com.example.freetalk.community.service.PictureService;
@@ -40,7 +37,6 @@ public class CommunityController {
     @PostMapping("/addCommunity")
     public String addCommunity(CommunityDTO dto){
 
-        System.out.println(dto.toString());
         return cs.addCommunity(dto);
     }
 
@@ -59,12 +55,20 @@ public class CommunityController {
     }
 
     @PostMapping("/view/commentPost")
-    public String insertComment(CommentDto commentDto,HttpSession session){
-        SessionUserDto user = (SessionUserDto)session.getAttribute("user");
-        commentDto.setCom_u_id(user.getId());
-        System.out.println(commentDto);
+    public String insertComment(CommentDto commentDto){
+        return commentService.insertComment(commentDto);
+    }
 
-        commentService.insertComment(commentDto);
-        return "success";
+
+    @PostMapping("/view/deleteComment")
+    public String deleteComment(CommentDto commentDto,HttpSession session){
+        SessionUserDto user = (SessionUserDto)session.getAttribute("user");
+        return commentService.deleteComment(commentDto,user);
+    }
+
+    @PostMapping("/view/updateComment")
+    public String updateComment(CommentDto commentDto, HttpSession session){
+        SessionUserDto user = (SessionUserDto)session.getAttribute("user");
+        return commentService.updateComment(commentDto,user);
     }
 }

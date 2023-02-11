@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/search/**","/oauth2/authorization/**","/socialLogin","/", "/css/**", "/image/**",
-                        "/js/**","/community/communityPage*","/view**").permitAll()
+                        "/js/**","/community/communityPage*","/view/**").permitAll()
                 .antMatchers("/api/v1/**").hasRole(Role.
                         USER.name())
                 .anyRequest().authenticated()

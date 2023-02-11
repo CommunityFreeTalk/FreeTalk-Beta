@@ -10,6 +10,13 @@ import java.util.List;
 public interface CommentMapper {
 
     List<CommentResp> findAllComment(Long w_id);
+    Long findCommentById(Long com_id);
 
     int insertComment(CommentDto commentDto);
+
+    int updateComment(CommentDto commentDto);
+
+    int deleteComment(Long com_id);
+
+
 }

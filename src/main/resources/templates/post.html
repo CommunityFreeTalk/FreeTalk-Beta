@@ -59,13 +59,14 @@
 <input type="hidden" id="w_id" th:value="${view.getW_id()}"}>
 
 
+
 <div  class="box_in">
     <input type="text" name="comment_content" id="comment_content">
-    <button id = "btn_comment_save" type="submit" onclick="commentPost()">등록</button>
+    <button id = "btn_comment_save" type="button" onclick="commentPost()">등록</button>
     <input type="hidden" name="post_no" id="post_no">
-    <button>답글</button>
-    <button>삭제</button>
-    <button>수정</button>
+    <button type="button" >답글</button>
+    <button type="button" >삭제</button>
+    <button type="button" >수정</button>
 </div>
 <script>
     function commentPost() {
@@ -73,14 +74,63 @@
         var w_id = $('#w_id').val();
         var com_contents = $('#comment_content').val();
 
-        $("#com_contents").val(com_contents);
-        $("#w_id").val(w_id);
+
+        if(com_contents.length==0){
+            alert("내용이 비어있습니다");
+            return;
+        }
 
         $.ajax({
             type: "post",
             url: "/view/commentPost",
             data: {"com_contents": com_contents,
                 "w_id": w_id
+            },
+
+            success: function (data) {
+                if (data == 'success') {
+                    alert("등록성공");
+                    location.reload();
+                }else{
+                    alert("등록실패")
+                }
+            },
+
+        });
+    }
+</script>
+<div class="card">
+    <div class="card-header">댓글</div>
+    <ul id="reply--box" class="list-group" th:each="comment : ${commentList}">
+        <li th:id="'comment--' + ${comment.getCom_id()}" class="list-group-item d-flex justify-content-between">
+            <div th:text="${comment.getCom_contents()}"></div>
+            <div class="d-flex">
+                <input type="hidden" id="com_id" th:value="${comment.getCom_id()}"}>
+                <span class="text-monospace mr-1">작성자: &nbsp;</span><div class="text-monospace mr-1"  th:text="${comment.getCom_u_id()}"></div>
+                <button class="badge btn-warning" onclick="updateComment()">수정</button><span> | </span>
+                <button class="badge btn-danger"  onclick="deleteComment(${comment.getCom_id()})">삭제</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+
+
+<script>
+    function updateComment() {
+
+        var com_id = $('#com_id').val();
+        var com_contents = $('#comment_content').val();
+
+        $("#com_contents").val(com_contents);
+        $("#com_id").val(com_id);
+
+        $.ajax({
+            type: "post",
+            url: "/view/updateComment",
+            data: {"com_contents": com_contents,
+                "com_id": com_id
             },
 
             success: function (data) {
@@ -95,23 +145,36 @@
         });location.reload();
     }
 </script>
-<div class="card">
-    <div class="card-header">댓글</div>
-    <ul id="reply--box" class="list-group" th:each="comment : ${commentList}">
-        <li th:id="'comment--' + ${comment.getCom_id()}" class="list-group-item d-flex justify-content-between">
-            <div th:text="${comment.getCom_contents()}"></div>
-            <div class="d-flex">
-                <span class="text-monospace mr-1">작성자: &nbsp;</span><div class="text-monospace mr-1" th:text="${comment.getCom_u_id()}"></div>
-                <button class="badge btn-warning">수정</button><span> | </span>
-                <button class="badge btn-danger">삭제</button>
-            </div>
-        </li>
-    </ul>
-</div>
+<script>
+    function deleteComment(com_id) {
+
+        var com_id = $('#com_id').val();
+
+        alert(com_id);
+        $("#com_id").val(com_id);
+
+        $.ajax({
+            type: "post",
+            url: "/view/deleteComment",
+            data: {"com_id": com_id
+            },
+
+            success: function (data) {
+                if (data == 'success') {
+                    alert("삭제되었습니다.");
+                    location.reload();
+                }
+            },
+            error: function (request, status, error) {
+                alert("code: " + request.status + "\n" + "error: " + error);
+                location.reload();
+            }
+
+        });
+    }
 
 
-
-
+</script>
 
 <script>
     let text = document.getElementById('aaa').value;
